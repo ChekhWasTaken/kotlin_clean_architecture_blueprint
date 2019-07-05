@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_nav_graph.xml"
+        app:startDestination="@id/postListFragment">
+
+    <fragment
+            android:id="@+id/postListFragment"
+            android:name="com.example.jsonplaceholderclient.presentation.postlist.PostListFragment"
+            tools:layout="@layout/fragment_post_list"
+            android:label="PostListFragment">
+        <action
+                android:id="@+id/action_postListFragment_to_postFragment"
+                app:destination="@id/postFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+            android:id="@+id/postFragment"
+            android:name="com.example.jsonplaceholderclient.presentation.post.PostFragment"
+            tools:layout="@layout/fragment_post"
+            android:label="PostFragment">
+        <argument
+                android:name="postId"
+                app:argType="integer"/>
+        <action
+                android:id="@+id/action_postFragment_to_userFragment"
+                app:destination="@id/userFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/userFragment"
+            android:name="com.example.jsonplaceholderclient.presentation.user.UserFragment"
+            android:label="fragment_user"
+            tools:layout="@layout/fragment_user">
+        <argument
+                android:name="userId"
+                app:argType="integer"/>
+    </fragment>
+</navigation>

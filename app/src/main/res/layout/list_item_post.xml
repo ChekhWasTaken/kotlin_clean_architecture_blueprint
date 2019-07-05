@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="post"
+                type="com.example.data.entity.Post"/>
+
+        <variable
+                name="postClickListener"
+                type="com.example.jsonplaceholderclient.presentation.common.PostListAdapter.OnPostClickListener"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+            android:layout_margin="@dimen/cardview_default_margin"
+            android:onClick="@{() -> postClickListener.onPostClick(post)}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:padding="@dimen/content_default_padding"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    tools:text="@tools:sample/lorem"
+                    android:text="@{post.title}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    tools:text="@tools:sample/lorem"
+                    android:text="@{post.body}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

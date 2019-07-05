@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="post"
+                type="com.example.data.entity.Post"/>
+
+        <variable
+                name="handler"
+                type="com.example.jsonplaceholderclient.presentation.common.PostActionHandler"/>
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:divider="@android:drawable/divider_horizontal_textfield"
+            android:showDividers="middle"
+            android:layout_height="wrap_content">
+
+        <TextView
+                tools:text="@tools:sample/lorem"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:text="@{post.title}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                tools:text="@tools:sample/full_names"
+                android:text="@{post.user.name + ` ` + `[` + post.user.email + `]`}"
+                android:onClick="@{() -> handler.onPostAuthorClick(post)}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                tools:text="@tools:sample/lorem/random"
+                android:text="@{post.body}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>
