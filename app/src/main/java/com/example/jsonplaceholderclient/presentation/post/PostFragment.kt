@@ -4,19 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.data.entity.Post
+import com.example.framework.BaseFragment
+import com.example.framework.UIState
+import com.example.framework.toast
 import com.example.jsonplaceholderclient.databinding.FragmentPostBinding
 import com.example.jsonplaceholderclient.presentation.common.PostActionHandler
-import com.example.jsonplaceholderclient.presentation.toast
 import javax.inject.Inject
 
-internal class PostFragment @Inject constructor(viewModelFactory: ViewModelProvider.Factory) : Fragment() {
+internal class PostFragment @Inject constructor(viewModelFactory: ViewModelProvider.Factory) : BaseFragment() {
     private val viewModel by viewModels<PostViewModel> { viewModelFactory }
 
     private val args by navArgs<PostFragmentArgs>()
@@ -42,7 +43,7 @@ internal class PostFragment @Inject constructor(viewModelFactory: ViewModelProvi
         viewModel.postLiveData.observe(this, Observer {
             when (it) {
                 is UIState.Loading -> toast("Loading data")
-                is UIState.Error -> it.exception.message?.let { message -> toast(message) }
+                is UIState.Error -> it.ex.message?.let { message -> toast(message) }
                 is UIState.Success -> binding.post = it.data
             }
         })

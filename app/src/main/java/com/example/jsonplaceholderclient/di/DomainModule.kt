@@ -10,23 +10,25 @@ import dagger.Provides
 import javax.inject.Named
 
 @Module
-internal class DomainModule {
+internal object DomainModule {
     @Provides
+    @JvmStatic
     fun getPostUseCase(
         @Named("local") localPost: PostRepository,
         @Named("remote") remotePost: PostRepository,
         @Named("local") localUser: UserRepository,
         @Named("remote") remoteUser: UserRepository
-
     ) =
         GetPostUseCase(localPost, remotePost, localUser, remoteUser)
 
     @Provides
+    @JvmStatic
     fun getPostsUseCase(
         @Named("local") localPost: PostRepository,
         @Named("remote") remotePost: PostRepository
     ) = GetPostsUseCase(localPost, remotePost)
 
     @Provides
+    @JvmStatic
     fun getPostsForUserUseCase(@Named("local") userRepository: UserRepository) = GetPostsForUserUseCase(userRepository)
 }

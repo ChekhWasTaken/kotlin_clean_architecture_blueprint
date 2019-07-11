@@ -15,7 +15,6 @@ import javax.inject.Singleton
 import kotlin.reflect.KClass
 
 
-@Singleton
 internal class ViewModelFactory @Inject constructor(private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -37,6 +36,7 @@ internal annotation class ViewModelKey(val value: KClass<out ViewModel>)
 @Module
 internal interface ViewModelModule {
     @Binds
+    @Singleton
     fun viewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds

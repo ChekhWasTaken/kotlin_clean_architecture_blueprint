@@ -7,8 +7,9 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-internal class ApiModule {
+internal object ApiModule {
     @Provides
+    @JvmStatic
     @Singleton
     fun apiService(): ApiServiceWrapper = ApiServiceFactory.create()
 }

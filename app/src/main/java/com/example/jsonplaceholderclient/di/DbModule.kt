@@ -8,8 +8,9 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-internal class DbModule {
+internal object DbModule {
     @Provides
+    @JvmStatic
     @Singleton
     fun appDatabase(context: Context): AppDatabase = AppDatabaseFactory.create(context)
 }

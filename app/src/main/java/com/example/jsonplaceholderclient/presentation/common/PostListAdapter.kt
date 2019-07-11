@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.data.entity.Post
 import com.example.jsonplaceholderclient.databinding.ListItemPostBinding
 
-internal class PostListAdapter(private val l: OnPostClickListener) :
-    RecyclerView.Adapter<PostListAdapter.PostViewHolder>() {
+internal class PostListAdapter(private val postClickListener: (Post) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val posts = mutableListOf<Post>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -16,12 +16,13 @@ internal class PostListAdapter(private val l: OnPostClickListener) :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), l
-        )
+            ), postClickListener
+        ) as RecyclerView.ViewHolder
 
     override fun getItemCount() = posts.size
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) = holder.bind(posts[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
+        (holder as PostViewHolder).bind(posts[position])
 
     fun set(posts: List<Post>) {
         this.posts.clear()
@@ -37,16 +38,15 @@ internal class PostListAdapter(private val l: OnPostClickListener) :
         notifyItemRangeInserted(insertPosition, posts.size)
     }
 
-    internal class PostViewHolder(private val binding: ListItemPostBinding, private val l: OnPostClickListener) :
+    private class PostViewHolder(
+        private val binding: ListItemPostBinding,
+        private val postClickListener: (Post) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(post: Post) {
             binding.post = post
-            binding.postClickListener = l
+            binding.postClickListener = postClickListener as OnPostClickListener
         }
-    }
-
-    internal interface OnPostClickListener {
-        fun onPostClick(post: Post)
     }
 }

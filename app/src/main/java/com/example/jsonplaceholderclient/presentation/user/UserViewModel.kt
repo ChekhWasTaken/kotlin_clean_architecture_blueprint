@@ -1,21 +1,22 @@
 package com.example.jsonplaceholderclient.presentation.user
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.entity.Post
 import com.example.domain.GetPostsForUserUseCase
+import com.example.framework.BaseViewModel
+import com.example.framework.UIState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal class UserViewModel @Inject constructor(private val getPostsForUserUseCase: GetPostsForUserUseCase) :
-    ViewModel() {
-    private val _userLiveData = MutableLiveData<UIState>()
-    val userLiveData: LiveData<UIState> = _userLiveData
+    BaseViewModel() {
+
+    private val _userLiveData = MutableLiveData<UIState<List<Post>>>()
+    val userLiveData = _userLiveData
 
     fun getPostsForUser(userId: Int) {
-        _userLiveData.value = UIState.Loading
+        _userLiveData.value = UIState.Loading()
         viewModelScope.launch {
             try {
                 _userLiveData.value = UIState.Success(getPostsForUserUseCase.execute(userId))
@@ -24,10 +25,4 @@ internal class UserViewModel @Inject constructor(private val getPostsForUserUseC
             }
         }
     }
-}
-
-internal sealed class UIState {
-    object Loading : UIState()
-    class Error(val exception: Exception) : UIState()
-    class Success(val data: List<Post>) : UIState()
 }

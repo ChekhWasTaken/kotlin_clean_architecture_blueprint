@@ -1,4 +1,4 @@
-package com.example.jsonplaceholderclient.presentation
+package com.example.framework
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment

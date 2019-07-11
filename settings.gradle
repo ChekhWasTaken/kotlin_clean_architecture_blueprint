@@ -1,1 +1,1 @@
-include ':app', ':data', ':domain', ':api', ':db'
+include ':app', ':data', ':domain', ':api', ':db', ':framework'

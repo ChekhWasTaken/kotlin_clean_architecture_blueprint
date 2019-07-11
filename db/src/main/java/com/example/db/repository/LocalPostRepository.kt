@@ -24,7 +24,7 @@ class LocalPostRepository(private val appDatabase: AppDatabase) : PostRepository
         try {
             post = appDatabase.getPostDao().getById(id).toPost()
         } catch (ex: IllegalArgumentException) {
-            throw Errors.NoSuchPostException(id)
+            throw Errors.NoSuchPostException(id, ex)
         }
 
         if (post.user.name.isEmpty()) throw Errors.NoUserDataException(id, post.user.id)

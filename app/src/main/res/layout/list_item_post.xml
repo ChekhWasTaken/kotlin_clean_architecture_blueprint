@@ -11,7 +11,7 @@
 
         <variable
                 name="postClickListener"
-                type="com.example.jsonplaceholderclient.presentation.common.PostListAdapter.OnPostClickListener"/>
+                type="com.example.jsonplaceholderclient.presentation.common.OnPostClickListener"/>
     </data>
 
     <androidx.cardview.widget.CardView

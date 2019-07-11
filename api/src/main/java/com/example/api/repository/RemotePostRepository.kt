@@ -16,7 +16,7 @@ class RemotePostRepository(private val serviceWrapper: ApiServiceWrapper) : Post
             val postDto = serviceWrapper.apiService.getPost(id)
             return postDto.toPost(serviceWrapper.apiService.getUser(postDto.userId!!))
         } catch (ex: Throwable) {
-            throw Errors.ContentNotAvailable
+            throw Errors.ContentNotAvailable(ex)
         }
 
     }
@@ -25,7 +25,7 @@ class RemotePostRepository(private val serviceWrapper: ApiServiceWrapper) : Post
         return try {
             serviceWrapper.apiService.getPosts().map { it.toPost() }
         } catch (ex: Throwable) {
-            throw Errors.ContentNotAvailable
+            throw Errors.ContentNotAvailable(ex)
         }
     }
 }

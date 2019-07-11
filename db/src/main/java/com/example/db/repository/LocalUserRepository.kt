@@ -28,7 +28,7 @@ class LocalUserRepository(private val appDatabase: AppDatabase) : UserRepository
         return try {
             appDatabase.getUserDao().getById(id).toUser()
         } catch (ex: IllegalArgumentException) {
-            throw Errors.NoSuchUserException(id)
+            throw Errors.NoSuchUserException(id, ex)
         }
     }
 }

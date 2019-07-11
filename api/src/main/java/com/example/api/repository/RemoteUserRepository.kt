@@ -24,7 +24,7 @@ class RemoteUserRepository(private val serviceWrapper: ApiServiceWrapper) : User
         return try {
             serviceWrapper.apiService.getUser(id).toUser()
         } catch (ex: Throwable) {
-            throw Errors.ContentNotAvailable
+            throw Errors.ContentNotAvailable(ex)
         }
     }
 }

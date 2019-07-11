@@ -7,14 +7,14 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        AppModule::class,
-        ViewModelModule::class,
-        FragmentModule::class,
-        ActivityModule::class,
         ApiModule::class,
+        DbModule::class,
         DataModule::class,
-        DomainModule::class,
-        DbModule::class
+        AppModule::class,
+        ActivityModule::class,
+        FragmentModule::class,
+        ViewModelModule::class,
+        DomainModule::class
     ]
 )
 interface AppComponent {

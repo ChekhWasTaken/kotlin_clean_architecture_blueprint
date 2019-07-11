@@ -1,13 +1,13 @@
 package com.example.jsonplaceholderclient.presentation
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentFactory
+import com.example.framework.BaseActivity
 import com.example.jsonplaceholderclient.R
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-internal class MainActivity : AppCompatActivity() {
+internal class MainActivity : BaseActivity() {
     @Inject
     lateinit var fragmentFactory: FragmentFactory
 

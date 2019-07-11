@@ -13,7 +13,6 @@ import javax.inject.Provider
 import javax.inject.Singleton
 import androidx.fragment.app.FragmentFactory as AndroidFragmentFactory
 
-@Singleton
 internal class FragmentFactory @Inject constructor(private val creators: Map<Class<out Fragment>, @JvmSuppressWildcards Provider<Fragment>>) :
     AndroidFragmentFactory() {
 
@@ -28,6 +27,7 @@ internal class FragmentFactory @Inject constructor(private val creators: Map<Cla
 @Module
 internal interface FragmentModule {
     @Binds
+    @Singleton
     fun fragmentFactory(fragmentFactory: FragmentFactory): AndroidFragmentFactory
 
     @Binds
