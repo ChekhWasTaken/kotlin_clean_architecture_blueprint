@@ -36,6 +36,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0-alpha02'
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha01'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -45,4 +46,11 @@ dependencies {
 
     kapt 'androidx.room:room-compiler:2.1.0'
     implementation 'androidx.room:room-runtime:2.1.0'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
+    api "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0'
+
+    implementation project(':domain')
 }

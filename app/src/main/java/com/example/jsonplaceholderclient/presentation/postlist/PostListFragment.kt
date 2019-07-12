@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.framework.BaseFragment
 import com.example.framework.UIState
+import com.example.framework.operate
 import com.example.framework.toast
 import com.example.jsonplaceholderclient.R
 import com.example.jsonplaceholderclient.presentation.common.PostListAdapter
@@ -34,15 +35,12 @@ internal class PostListFragment @Inject constructor(viewModelFactory: ViewModelP
 
         list_post.adapter = postListAdapter
 
-        viewModel.postsLiveData.observe(this, Observer {
+        viewModel.operate().observe(this, Observer {
             when (it) {
                 is UIState.Loading -> toast("Loading data")
                 is UIState.Error -> it.ex.message?.let { message -> toast(message) }
                 is UIState.Success -> postListAdapter.submit(it.data)
             }
         })
-
-        viewModel.getPosts()
     }
-
 }

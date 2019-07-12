@@ -11,7 +11,7 @@ class GetPostUseCase(
     private val localUser: UserRepository,
     private val remoteUser: UserRepository
 ) :
-    UseCase<Int, Post> {
+    IOUseCase<Int, Post> {
 
     override suspend fun execute(request: Int): Post {
         return try {

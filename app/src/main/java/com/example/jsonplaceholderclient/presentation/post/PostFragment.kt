@@ -19,7 +19,6 @@ import javax.inject.Inject
 
 internal class PostFragment @Inject constructor(viewModelFactory: ViewModelProvider.Factory) : BaseFragment() {
     private val viewModel by viewModels<PostViewModel> { viewModelFactory }
-
     private val args by navArgs<PostFragmentArgs>()
 
     private lateinit var binding: FragmentPostBinding
@@ -37,17 +36,14 @@ internal class PostFragment @Inject constructor(viewModelFactory: ViewModelProvi
             override fun onPostAuthorClick(post: Post) {
                 findNavController().navigate(PostFragmentDirections.actionPostFragmentToUserFragment(post.user.id))
             }
-
         }
 
-        viewModel.postLiveData.observe(this, Observer {
+        viewModel.operate(args.postId).observe(this, Observer {
             when (it) {
                 is UIState.Loading -> toast("Loading data")
                 is UIState.Error -> it.ex.message?.let { message -> toast(message) }
                 is UIState.Success -> binding.post = it.data
             }
         })
-
-        viewModel.getPost(args.postId)
     }
 }

@@ -4,7 +4,7 @@ import com.example.data.entity.Post
 import com.example.data.repository.PostRepository
 
 class GetPostsUseCase constructor(private val localPost: PostRepository, private val remotePost: PostRepository) :
-    UseCase<Unit, List<Post>> {
+    IOUseCase<Unit, List<Post>> {
     override suspend fun execute(request: Unit): List<Post> {
         var posts = localPost.getPosts()
 

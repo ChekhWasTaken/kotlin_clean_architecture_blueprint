@@ -8,15 +8,10 @@
         <variable
                 name="post"
                 type="com.example.data.entity.Post"/>
-
-        <variable
-                name="postClickListener"
-                type="com.example.jsonplaceholderclient.presentation.common.OnPostClickListener"/>
     </data>
 
     <androidx.cardview.widget.CardView
             android:layout_margin="@dimen/cardview_default_margin"
-            android:onClick="@{() -> postClickListener.onPostClick(post)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
