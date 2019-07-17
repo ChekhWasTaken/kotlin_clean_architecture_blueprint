@@ -1,5 +1,7 @@
 package com.example.data.entity
 
+import com.example.data.QueryObject
+
 
 data class User(
     val address: Address,
@@ -30,3 +32,5 @@ data class Geo(
     val lat: String,
     val lng: String
 )
+
+data class UserQuery(val id: Int = -1, val email: String = "") : QueryObject

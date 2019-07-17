@@ -4,26 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.data.entity.Post
-import com.example.framework.BaseFragment
-import com.example.framework.UIState
+import com.example.framework.IOViewModel
+import com.example.framework.IoFragment
 import com.example.framework.toast
 import com.example.jsonplaceholderclient.databinding.FragmentPostBinding
 import com.example.jsonplaceholderclient.presentation.common.PostActionHandler
 import javax.inject.Inject
+import kotlin.reflect.KClass
 
-internal class PostFragment @Inject constructor(viewModelFactory: ViewModelProvider.Factory) : BaseFragment() {
-    private val viewModel by viewModels<PostViewModel> { viewModelFactory }
+internal class PostFragment @Inject constructor(viewModelFactory: ViewModelProvider.Factory) :
+    IoFragment<Int, Post>(viewModelFactory) {
+
+    override val viewModelClass: KClass<out IOViewModel<Int, Post>>
+        get() = PostViewModel::class
+
+    override val request: Int
+        get() = args.postId
+
     private val args by navArgs<PostFragmentArgs>()
-
     private lateinit var binding: FragmentPostBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateContentView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentPostBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -37,13 +46,14 @@ internal class PostFragment @Inject constructor(viewModelFactory: ViewModelProvi
                 findNavController().navigate(PostFragmentDirections.actionPostFragmentToUserFragment(post.user.id))
             }
         }
+    }
 
-        viewModel.operate(args.postId).observe(this, Observer {
-            when (it) {
-                is UIState.Loading -> toast("Loading data")
-                is UIState.Error -> it.ex.message?.let { message -> toast(message) }
-                is UIState.Success -> binding.post = it.data
-            }
-        })
+    override fun onError(throwable: Throwable) {
+        throwable.message?.let { message -> toast(message) }
+    }
+
+
+    override fun onSuccess(data: Post) {
+        binding.post = data
     }
 }

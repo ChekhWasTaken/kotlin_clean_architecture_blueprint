@@ -1,6 +1,8 @@
 package com.example.domain
 
 import com.example.data.entity.Post
+import com.example.data.entity.PostQuery
+import com.example.data.entity.UserQuery
 import com.example.data.repository.Errors
 import com.example.data.repository.PostRepository
 import com.example.data.repository.UserRepository
@@ -14,18 +16,20 @@ class GetPostUseCase(
     IOUseCase<Int, Post> {
 
     override suspend fun execute(request: Int): Post {
+        val postQuery = PostQuery(id = request)
+
         return try {
-            localPost.getPost(request)
-        } catch (ex: Errors.NoSuchPostException) {
-            val post = remotePost.getPost(request)
-            localPost.addPost(post)
+            localPost.get(postQuery)
+        } catch (ex: Errors.NoMatchForQuery) {
+            val post = remotePost.get(postQuery)
+            localPost.add(post)
 
-            localPost.getPost(request)
-        } catch (ex: Errors.NoUserDataException) {
-            val user = remoteUser.getUser(ex.userId)
-            localUser.updateUser(user)
+            localPost.get(postQuery)
+        } catch (ex: Errors.EmptyDataForQuery) {
+            val user = remoteUser.get(UserQuery(id = localPost.getUserForPost(postQuery).id))
+            localUser.update(user)
 
-            localPost.getPost(request)
+            localPost.get(postQuery)
         }
     }
 }

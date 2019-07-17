@@ -6,16 +6,14 @@ import com.example.data.repository.PostRepository
 class GetPostsUseCase constructor(private val localPost: PostRepository, private val remotePost: PostRepository) :
     IOUseCase<Unit, List<Post>> {
     override suspend fun execute(request: Unit): List<Post> {
-        var posts = localPost.getPosts()
+        var posts = localPost.getAll()
 
         if (posts.isEmpty()) {
-            val remotePosts = remotePost.getPosts()
+            val remotePosts = remotePost.getAll()
 
-            localPost.addPost(*(remotePosts.toTypedArray()))
-            posts = localPost.getPosts()
+            localPost.add(*(remotePosts.toTypedArray()))
+            posts = localPost.getAll()
         }
-
-        println("GetPostsUseCase: fetched from local repo ${posts.size} items")
 
         return posts
     }

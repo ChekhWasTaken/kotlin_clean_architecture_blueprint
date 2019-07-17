@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-open class BaseAdapter<T> protected constructor(private val vhFactory: (parent: ViewGroup, viewType: Int) -> BaseViewHolder<T>) :
+abstract class BaseAdapter<T> protected constructor(private val vhFactory: (parent: ViewGroup, viewType: Int) -> BaseViewHolder<T>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<T>()
 

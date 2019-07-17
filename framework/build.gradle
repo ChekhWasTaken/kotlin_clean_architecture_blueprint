@@ -28,6 +28,10 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -46,11 +50,6 @@ dependencies {
 
     kapt 'androidx.room:room-compiler:2.1.0'
     implementation 'androidx.room:room-runtime:2.1.0'
-
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
-    api "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0'
 
     implementation project(':domain')
 }

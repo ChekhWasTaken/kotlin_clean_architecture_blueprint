@@ -1,15 +1,10 @@
 package com.example.data.repository
 
+import com.example.data.Repository
 import com.example.data.entity.Post
 import com.example.data.entity.User
+import com.example.data.entity.UserQuery
 
-interface UserRepository {
-    @Throws(Errors.NoSuchUserException::class, Errors.ContentNotAvailable::class)
-    suspend fun getUser(id: Int): User
-
-    suspend fun addUser(vararg users: User)
-
-    suspend fun updateUser(vararg users: User)
-
+interface UserRepository : Repository<User, UserQuery> {
     suspend fun getUserWithPosts(id: Int): List<Post>
 }
